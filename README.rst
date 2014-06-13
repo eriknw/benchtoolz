@@ -135,6 +135,7 @@ Features
 
 - The following illustrates typical usage for benchmarking a function
   named ``myfunc``
+
     - Following these conventions makes using ``benchtoolz`` a breeze
     - You are not forced to use these conventions if you don't like them
 
@@ -144,6 +145,7 @@ Features
 - Benchmarks are defined in the file "bench_myfunc.py"
 - There may be multiple variant files and benchmark files for ``myfunc``
   contained in multiple directories
+
     - By default, ``benchtoolz`` searches in directories "\*benchmark\*"
 
 - All benchmarks are run on each variant of ``myfunc`` (even those from
@@ -156,6 +158,7 @@ Features
   data; in this case, a single benchmark function may be defined that
   will automatically run multiple times using different data
 - There are two ways to define a benchmark to use multiple input data:
+
     1. Define a positional argument; the name of the argument identifies
        the prefix of the data to use
     2. Define a keyword argument with a list or dict of values; the
@@ -163,6 +166,7 @@ Features
 
 - For example, this can be applied to the ``zeros`` example above
     - The original code:
+
 
         .. code:: python
 
@@ -178,6 +182,7 @@ Features
 
     - Can be replaced with:
 
+
         .. code:: python
 
             data_empty = 0
@@ -190,6 +195,7 @@ Features
 
     - Or:
 
+
         .. code:: python
 
             def bench(data=[0, 10, 10000]):
@@ -197,6 +203,7 @@ Features
 
 
     - And we may allow the following to give names to the data:
+
 
         .. code:: python
 
@@ -208,6 +215,7 @@ Features
 
 - The Cython language is a superset of the Python language that combines
   elements of C to increase performance
+
     - Cython generates C code from Cython code that is then statically compiled
     - It is a very easy way to write fast C extensions usable in CPython
     - Cython is commonly used to speed up performance-critical sections of code
@@ -215,6 +223,7 @@ Features
       try writing it in Cython?
 
 - ``benchtoolz`` automatically compiles Cython files via ``pyximport``
+
     - If necessary, build dependencies may be defined in `"\*.pyxdep"
       files <http://docs.cython.org/src/userguide/source_files_and_compilation.html#dependency-handling>`__
     - For even more control, build via ``distutils`` in "setup.py" as done
@@ -229,6 +238,7 @@ Features
   ``mintime`` (default 0.25 seconds)
 - Unlike ``timeit`` and IPython's ``%timeit`` magic, the number of loops
   is a power of two, not 10
+
     - Benchmarks that have similar performance will use similar numbers
       of loops
     - The time of each benchmark will typically be between ``mintime``
@@ -244,6 +254,7 @@ Features
 - It is good practice to include a *reference* implementation of the
   function being benchmarked in the benchmark file, which enables
   two things:
+
     1. Benchmark behavior may be tested using standard testing frameworks
     2. The output from using each variant being benchmarked will be
        checked for consistency (*not yet implemented*)
@@ -260,6 +271,7 @@ Features
   phase altogether
 - The user can provide a callback function that executes after benchmark
   files are imported but before each benchmark is run
+
     - The callback function receives a modifiable ``dict`` that contains all the
       information for the current benchmark being run
     - For example, this allows a user to check for and take action on

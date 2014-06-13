@@ -136,8 +136,8 @@ Features
 - The following illustrates typical usage for benchmarking a function
   named ``myfunc``
 
-    - Following these conventions makes using ``benchtoolz`` a breeze
-    - You are not forced to use these conventions if you don't like them
+  - Following these conventions makes using ``benchtoolz`` a breeze
+  - You are not forced to use these conventions if you don't like them
 
 - Variants of function ``myfunc`` are defined in the file "myfunc.py"
   ("myfunc.pyx" for Cython)
@@ -146,7 +146,7 @@ Features
 - There may be multiple variant files and benchmark files for ``myfunc``
   contained in multiple directories
 
-    - By default, ``benchtoolz`` searches in directories "\*benchmark\*"
+  - By default, ``benchtoolz`` searches in directories "\*benchmark\*"
 
 - All benchmarks are run on each variant of ``myfunc`` (even those from
   separate directories)
@@ -159,56 +159,57 @@ Features
   will automatically run multiple times using different data
 - There are two ways to define a benchmark to use multiple input data:
 
-    1. Define a positional argument; the name of the argument identifies
-       the prefix of the data to use
-    2. Define a keyword argument with a list or dict of values; the
-       values will be used as the input data
+  1. Define a positional argument; the name of the argument identifies
+     the prefix of the data to use
+  2. Define a keyword argument with a list or dict of values; the
+     values will be used as the input data
 
 - For example, this can be applied to the ``zeros`` example above
-    - The original code:
+
+  - The original code:
 
 
-        .. code:: python
+    .. code:: python
 
-            def bench_empty():
-                zeros(0)
+        def bench_empty():
+            zeros(0)
 
-            def bench_small():
-                zeros(10)
+        def bench_small():
+            zeros(10)
 
-            def bench_large():
-                zeros(10000)
-
-
-    - Can be replaced with:
+        def bench_large():
+            zeros(10000)
 
 
-        .. code:: python
-
-            data_empty = 0
-            data_small = 10
-            data_large = 10000
-
-            def bench(data):
-                zeros(data)
+  - Can be replaced with:
 
 
-    - Or:
+    .. code:: python
+
+        data_empty = 0
+        data_small = 10
+        data_large = 10000
+
+        def bench(data):
+            zeros(data)
 
 
-        .. code:: python
-
-            def bench(data=[0, 10, 10000]):
-                zeros(data)
+  - Or:
 
 
-    - And we may allow the following to give names to the data:
+    .. code:: python
+
+        def bench(data=[0, 10, 10000]):
+            zeros(data)
 
 
-        .. code:: python
+  - And we may allow the following to give names to the data:
 
-            def bench(data={'empty': 0, 'small': 10, 'large': 10000}):
-                zeros(data)
+
+    .. code:: python
+
+        def bench(data={'empty': 0, 'small': 10, 'large': 10000}):
+            zeros(data)
 
 
 **Benchmark Cython functions:**
@@ -216,18 +217,18 @@ Features
 - The Cython language is a superset of the Python language that combines
   elements of C to increase performance
 
-    - Cython generates C code from Cython code that is then statically compiled
-    - It is a very easy way to write fast C extensions usable in CPython
-    - Cython is commonly used to speed up performance-critical sections of code
-    - Hence, if you are benchmarking a function to optimize it, why not
-      try writing it in Cython?
+  - Cython generates C code from Cython code that is then statically compiled
+  - It is a very easy way to write fast C extensions usable in CPython
+  - Cython is commonly used to speed up performance-critical sections of code
+  - Hence, if you are benchmarking a function to optimize it, why not
+    try writing it in Cython?
 
 - ``benchtoolz`` automatically compiles Cython files via ``pyximport``
 
-    - If necessary, build dependencies may be defined in `"\*.pyxdep"
-      files <http://docs.cython.org/src/userguide/source_files_and_compilation.html#dependency-handling>`__
-    - For even more control, build via ``distutils`` in "setup.py" as done
-      for typical Cython projects (*not yet implemented*)
+  - If necessary, build dependencies may be defined in `"\*.pyxdep"
+    files <http://docs.cython.org/src/userguide/source_files_and_compilation.html#dependency-handling>`__
+  - For even more control, build via ``distutils`` in "setup.py" as done
+    for typical Cython projects (*not yet implemented*)
 
 **Benchmarks run quickly:**
 
@@ -239,11 +240,11 @@ Features
 - Unlike ``timeit`` and IPython's ``%timeit`` magic, the number of loops
   is a power of two, not 10
 
-    - Benchmarks that have similar performance will use similar numbers
-      of loops
-    - The time of each benchmark will typically be between ``mintime``
-      and ``2 * mintime`` (if powers of 10 were used, the time would be
-      between ``mintime`` and ``10 * mintime``)
+  - Benchmarks that have similar performance will use similar numbers
+    of loops
+  - The time of each benchmark will typically be between ``mintime``
+    and ``2 * mintime`` (if powers of 10 were used, the time would be
+    between ``mintime`` and ``10 * mintime``)
 
 - ``timeit`` is used under the covers, which avoids a number of common
   traps for measuring execution times
@@ -255,9 +256,9 @@ Features
   function being benchmarked in the benchmark file, which enables
   two things:
 
-    1. Benchmark behavior may be tested using standard testing frameworks
-    2. The output from using each variant being benchmarked will be
-       checked for consistency (*not yet implemented*)
+  1. Benchmark behavior may be tested using standard testing frameworks
+  2. The output from using each variant being benchmarked will be
+     checked for consistency (*not yet implemented*)
 
 
 **Users have fine control over what Python code gets imported and executed:**
@@ -272,11 +273,11 @@ Features
 - The user can provide a callback function that executes after benchmark
   files are imported but before each benchmark is run
 
-    - The callback function receives a modifiable ``dict`` that contains all the
-      information for the current benchmark being run
-    - For example, this allows a user to check for and take action on
-      an attribute that was added to a function such as ``myfunc.runbench = False``
-    - If the callback function returns ``False``, the current benchmark is skipped
+  - The callback function receives a modifiable ``dict`` that contains all the
+    information for the current benchmark being run
+  - For example, this allows a user to check for and take action on
+    an attribute that was added to a function such as ``myfunc.runbench = False``
+  - If the callback function returns ``False``, the current benchmark is skipped
 
 
 Why?
